@@ -61,13 +61,20 @@ namespace LightDarkTheme
                 object registryValueObject = key?.GetValue(RegistryValueName);
                 if (registryValueObject == null)
                 {
+                    MessageBox.Show("LightTheme");
                     return "LightTheme";
                 }
 
                 int registryValue = (int)registryValueObject;
 
+                if(registryValue > 0)
+                    MessageBox.Show("DarkTheme");
+                else
+                    MessageBox.Show("LightTheme");
+
                 return registryValue > 0 ? "DarkTheme" : "LightTheme";
             }
+
         }
 
         public void SetTheme()

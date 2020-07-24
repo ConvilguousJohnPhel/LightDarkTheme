@@ -1,0 +1,1413 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Iwwerall</name>
+    </assembly>
+    <members>
+        <member name="M:Iwwerall.AlgemeneFuncties.KVM_SetPort(System.Byte)">
+            <summary>
+            Sets the active port on the KVM
+            </summary>
+            <param name="Port">Port number between 1 and 16</param>
+            <returns>True is successful</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.KVM_GetActivePort">
+            <summary>
+            Gets the currently active port on the KVM
+            </summary>
+            <returns>The port or 0 if failed</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.KVM_SetLEDTimeOut(System.Byte)">
+            <summary>
+            Sets the time out of the LEDs on the front.
+            in seconds, 0 means never
+            </summary>
+            <param name="Timeout">Time out in secs</param>
+            <returns>true if successful</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.KVM_MuteBeeper(System.Boolean)">
+            <summary>
+            Mute the beeper
+            </summary>
+            <param name="Mute"></param>
+            <returns>true if successful</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.IsThisBartsComputer">
+            <summary>
+            Is this program running on one of Bart's machines?
+            </summary>
+            <returns>true if it is so.. tiens :)</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.ConvertLinuxTime(System.Int64)">
+            <summary>
+            Converts linux time to DateTime (resolution is only 1 sec)
+            </summary>
+            <param name="LinuxTime">The integer</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetStatusColor(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Gives a color depending on the status of a value
+            </summary>
+            <param name="Value">Measured Value</param>
+            <param name="FullRed">Threshold to start going from Red to Orange</param>
+            <param name="FullOrange">Threshold to start going from Orange to Yellow</param>
+            <param name="FullYellow">Threshold to start going from Yellow to Green</param>
+            <param name="FullGreen">Value that should be reached </param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.HaalNISTTimeinUTC">
+            <summary>
+            Haal de huidige atoomtijd van nist
+            </summary>
+            <returns>Geeft een DateTime terug in UTC</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.ParseDaytimeProtocol(System.String)">
+            <summary>
+            Zet een datum van NIST om in datetime UTC
+            Input = 57537 16-05-29 10:47:29 50 0 0 212.7 UTC(NIST) *
+            </summary>
+            <param name="daytimeString">De waarde die terug komt van een query</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.ReadTemperatureSensor(System.Int32,System.String)">
+            <summary>
+            Leest een USB temp sensor in en geeft de temperatuur in string vorm terug
+            </summary>
+            <param name="ComPort">kan enkel 1 tot en met 9 zijn, bijhorend programma kan geen 10 en zo aan</param>
+            <param name="LocatieDigiTemp">Waar staat digitemp.exe</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.VerifyVATNr(System.String)">
+            <summary>
+            Haalt de gegevens voor een btw nummer op en controleert ook de BTW nr
+            </summary>
+            <param name="VATNr">De btw nummer in de vorm CC00000000 (BE0463231220 of LU26355223 bijv)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.CheckPasswordStrength(System.String)">
+            <summary>
+            Controleert of het paswoord minstens 8 characters lang is, een hoofdletter, een kleine letter bevat, een cijfer en een speciaal character bevat.
+            </summary>
+            <param name="Password">Het te controleren paswoord</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.ChangeColorBrightness(System.Drawing.Color,System.Single)">
+            <summary>
+            Creates color with corrected brightness.
+            </summary>
+            <param name="color">Color to correct.</param>
+            <param name="correctionFactor">The brightness correction factor. Must be between -1 and 1. 
+            Negative values produce darker colors.</param>
+            <returns>
+            Corrected <see cref="T:System.Drawing.Color"/> structure.
+            </returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.CheckBelgianVATNumber(System.String)">
+            <summary>
+            Check the validity of a Belgian VAT number, not its existence
+            </summary>
+            <param name="VATNumber">the VAT number in the form BE0xxx.xxx.xxx or whichever variant, everything except the BE and the numbers are stripped.</param>
+            <returns>a bool indicating success (Valid = true)</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.TranslateMimeEncoding(System.String)">
+            <summary>
+            Translates encoded strings in Mime, they must look like this: =?UTF-8?B?TRANSLATABLESTRING?= or =?UTF-8?Q?TRANSLATABLESTRING?= 
+            </summary>
+            <param name="TeVertalen">The string, can contain other parts and several translatable Mime strings</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetObjectSize(System.Object)">
+            <summary>
+            Returns the size in bytes in memory of any object
+            </summary>
+            <param name="Object"></param>
+            <returns>size in bytes</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.CheckLicense(System.String)">
+            <summary>
+            Controleert de licentie en de update tegen de hoofddatabase
+            Geeft een DataRow terug met deze kolommen:
+            Licensed (bool): true als de licentie in orde is
+            Code (int64): De code om de licentie in orde te brengen
+            Expires (DateTime): De datum wanneer hij vervalt
+            Message (String): Foutbericht voor een messagebox
+            PersistentString (String): de gecachte PersistentString
+            UpdateLink (string): De url om de update af te halen
+            </summary>
+            <param name="Application">De korte naam van de applicatie zoals Commerce 2010</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.CheckLicense(System.String,System.String,System.Boolean)">
+            <summary>
+            Controleert de licentie en de update tegen de hoofddatabase
+            Geeft een DataRow terug met deze kolommen:
+            Licensed (bool): true als de licentie in orde is
+            Code (int64): De code om de licentie in orde te brengen
+            Expires (DateTime): De datum wanneer hij vervalt
+            Message (String): Foutbericht voor een messagebox
+            PersistentString (String): de gecachte PersistentString
+            UpdateLink (string): De url om de update af te halen
+            </summary>
+            <param name="Application">De korte naam van de applicatie zoals Commerce 2010</param>
+            <param name="PersistentString">Gegegevsn die moeten teruggegeven wordne na een upgrade</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DownloadUpdate(System.String)">
+            <summary>
+            start een nieuw process om de update te downloaden die via een URL is doorgegeven
+            </summary>
+            <param name="UpdateLink">Een url met de msi file</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetWebpageContent(System.String)">
+            <summary>
+            Gets the content of a website even if it has cloudflare protection
+            </summary>
+            <param name="Url">the URL you want to download</param>
+            <returns>The complet webpage</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetWebpageContent(System.String,System.Int32)">
+            <summary>
+            Gets the content of a website even if it has cloudflare protection
+            </summary>
+            <param name="Url">the URL you want to download</param>
+            <param name="TimeOut">in msec, default = 30000</param>
+            <returns>The complet webpage</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_FilterInMemory(System.Windows.Forms.DataGridView,System.Data.DataTable,System.String,System.String,System.Windows.Forms.Label,System.Collections.Generic.List{System.String})">
+            <summary>
+            Filter een datagridview nadat alles al in een datatable zit.
+            Geef een Datagridview op, de datatable die gelinkt is, de filter (text waarop te filteren, nodig om te zien of hij leeg is),
+            de query waarin de filter eigenlijk in terug komt, optioneel een label voor het totaal en de kolommen die zichtbaar moeten zijn
+            </summary>
+            <param name="dgLijst">De datagridview</param>
+            <param name="dtSource">De bron DataTable</param>
+            <param name="Filter">De text waarop je filter, meestal van een Texbox afkomstig, mag niet leeg zijn of hij wijzigt niets</param>
+            <param name="Query">De hele query in de vorm van "Description like '%"+defilter+"%'"</param>
+            <param name="lblRowsInfo">De label waar het totaal in komt, als niet gebruikt null geven</param>
+            <param name="ColumnsToHide">Een lijst met kolommen zoals aan hidecolumns doorgegeven</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_HideColumns(System.Windows.Forms.DataGridView,System.Collections.Generic.List{System.String})">
+            <summary>
+            Verbergt alle kolommen die NIET voorkomen in de lijst
+            Gebruik: AF.DGF_HideColumns(ref dgClientDelegates, new List&lt;string&gt;() { "Delegate", "Paswoord", "EmailAddress", "NoNDRs", "ForwardFreeMails" });
+            </summary>
+            <param name="dgView">ref naar de DataGridView</param>
+            <param name="Kolomlijst">Een List&lt;string&gt; met alle nog te tonen kolommen</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_MakeColumnsWritable(System.Data.DataTable@,System.Windows.Forms.DataGridView,System.Collections.Generic.List{System.String})">
+            <summary>
+            Maakt alle opgesomde kolommen schrijfbaar
+            Gebruik: AF.DGF_MakeColumnsWritable(ref dtClientDelegates, ref dgClientDelegates, new List&lt;string&gt;() { "Delegate", "Paswoord", "EmailAddress" });
+            </summary>
+            <param name="dtTable">Ref naar de DataTable die aan de DataSource van de DataGridView is verbonden</param>
+            <param name="dgView">Ref naar de DataGridView zodat die readonly ook kan juist gezet worden</param>
+            <param name="Kolomlijst">Een List&lt;string&gt; met alle kolommen</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_KleurGeselecteerdeRegel(System.Windows.Forms.DataGridView)">
+            <summary>
+            Zorgt dat de achtergrondkleur bij een selectie wat wordt verlicht in kleur
+            </summary>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_KleurGeselecteerdeRegel(System.Windows.Forms.DataGridView,System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Zorgt dat de achtergrondkleur bij een selectie wat wordt verlicht in kleur
+            </summary>
+            <param name="dgView"></param>
+            <param name="LightText">De kleur voor op een lichte achtergrond (meestal Color.Black)</param>
+            <param name="DarkText">De kleur voor op een lichte achtergrond (meestal Color.LightGray)</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_KleurGeselecteerdeCell(System.Windows.Forms.DataGridView)">
+            <summary>
+            Zorgt dat de achtergrondkleur bij een selectie wat wordt verlicht in kleur
+            </summary>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_KleurGeselecteerdeCell(System.Windows.Forms.DataGridView,System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Zorgt dat de achtergrondkleur bij een selectie wat wordt verlicht in kleur
+            </summary>
+            <param name="dgView"></param>
+            <param name="LightText">De kleur voor op een lichte achtergrond (meestal Color.Black)</param>
+            <param name="DarkText">De kleur voor op een lichte achtergrond (meestal Color.LightGray)</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_SaveSelectedRows(System.Windows.Forms.DataGridView@,System.String,System.String)">
+            <summary>
+            Haal de geselecteerde rijen
+            </summary>
+            <param name="dgView"></param>
+            <param name="ColumnName"></param>
+            <param name="IgnoreValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_FilterText(System.Windows.Forms.DataGridView,System.Data.DataTable@,System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Filter de text in een datagridview
+            </summary>
+            <param name="dgView">Duh!!</param>
+            <param name="dtTable">De gelinkte datatable</param>
+            <param name="StartFilter">Een start filter buiten die van de zoekstring</param>
+            <param name="FilterText">De text die moet voorkomen in een van de kolommen</param>
+            <param name="ColumnsToSearch">De kolommen waarin gezocht moet worden</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_Kleur(System.Windows.Forms.DataGridView,System.Collections.Generic.List{System.Tuple{System.String,System.String,System.String,System.Drawing.Color}})">
+            <summary>
+            Set the background color rules
+            </summary>
+            <param name="dgView">The datagridview</param>
+            <param name="ColorRules">List of: Columnname, Target Value, == / != / default, Backcolor</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_Kleur(System.Windows.Forms.DataGridView,System.Collections.Generic.List{System.Tuple{System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color}})">
+            <summary>
+            Set the background color rules
+            </summary>
+            <param name="dgView">The datagridview</param>
+            <param name="ColorRules">List of: Columnname, Target Value, == / != / default, Backcolor, Forecolor</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DGF_FillGridView(System.Data.SqlClient.SqlConnection@,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Windows.Forms.DataGridView@,System.Data.DataTable@,System.Boolean@,System.Int32,System.String)">
+            <summary>
+            Zorgt dat het hele resultaat van een Stored Procedure in een DataTable wordt opgeslagen.
+            Gebruik:
+               AF.DGF_FillGridView(ref ConnBackground, "VerhoogTellingListsToProcess", new List&lt;SqlParameter&gt;() {
+                    new SqlParameter() { ParameterName = "@ID", SqlDbType = SqlDbType.BigInt, Value = CurrentQuery},
+                    new SqlParameter() { ParameterName = "@Aantal", SqlDbType = SqlDbType.BigInt, Value = AantalRijen}
+                    }, ref dtLeeg, ref Executingnothing);
+            </summary>
+            <param name="conn"></param>
+            <param name="StoredProcedure"></param>
+            <param name="ParamColl">Paramter lijst of een lege new List&lt;SqlParameter&gt;() {
+                    new SqlParameter() { ParameterName = "@ID", SqlDbType = SqlDbType.BigInt, Value = CurrentQuery},
+                    new SqlParameter() { ParameterName = "@Aantal", SqlDbType = SqlDbType.BigInt, Value = AantalRijen}
+                    }</param>
+            <param name="dgView"></param>
+            <param name="dtTable"></param>
+            <param name="ExecutingBlocked"></param>
+            <param name="Timeout"></param>
+            <returns>Geeft true terug als er wijzigingen</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.PDFDrawHatchedRectangle(PdfSharp.Drawing.XGraphics@,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,PdfSharp.Drawing.XColor)">
+            <summary>
+            Draws vertical llines in a rectangle.. without the rectangle around it
+            </summary>
+            <param name="gfx"></param>
+            <param name="Left"></param>
+            <param name="Top"></param>
+            <param name="Right"></param>
+            <param name="Bottom"></param>
+            <param name="LineThickness"></param>
+            <param name="Step"></param>
+            <param name="WidhtHeightRatio"></param>
+            <param name="Color"></param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DrawHatchedRectangle(System.Drawing.Graphics@,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Drawing.Color)">
+            <summary>
+            Draws a rectanlge filled with invliced lines
+            </summary>
+            <param name="gfx"></param>
+            <param name="Left"></param>
+            <param name="Top"></param>
+            <param name="Right"></param>
+            <param name="Bottom"></param>
+            <param name="LineThickness"></param>
+            <param name="Step"></param>
+            <param name="WidhtHeightRatio"></param>
+            <param name="Color"></param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.SQL_SendWithoutResponse(System.Data.SqlClient.SqlConnection,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Boolean@,System.Int32)">
+            <summary>
+            Stuurt een instructie met variabelen en doet een ExecutenonQuery
+            Gebruik:
+               AF.DGF_FillGridView(ref ConnBackground, "VerhoogTellingListsToProcess", new List&lt;SqlParameter&gt;() {
+                    new SqlParameter() { ParameterName = "@ID", SqlDbType = SqlDbType.BigInt, Value = CurrentQuery},
+                    new SqlParameter() { ParameterName = "@Aantal", SqlDbType = SqlDbType.BigInt, Value = AantalRijen}
+                    }, ref Executingnothing);
+            </summary>
+            <param name="conn"></param>
+            <param name="StoredProcedure"></param>
+            <param name="ParamColl">Paramter lijst of een lege new List&lt;SqlParameter&gt;() {
+                    new SqlParameter() { ParameterName = "@ID", SqlDbType = SqlDbType.BigInt, Value = CurrentQuery},
+                    new SqlParameter() { ParameterName = "@Aantal", SqlDbType = SqlDbType.BigInt, Value = AantalRijen}
+                    }</param>
+            <param name="ExecutingBlocked"></param>
+            <param name="Timeout">Specify the CommandTimeout in seconds, default = 30 sec</param>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.CheckOffDayCountry(System.String,System.DateTime)">
+            <summary>
+            Get the description of the specific holiday for that country (only Belgium, Sri Lanka and UAE supported as of 2019
+            </summary>
+            <param name="CountryCode">2 letter country code</param>
+            <param name="Day">The day you want to now the holiday for</param>
+            <returns>Nothing if it is a working day, Weekend for the weekend and the name of the hoiliday otherwise</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetdrivingDistanceBetweenPoints(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Gets the driving distance between two GeoLocations using Google's Distance Matrix
+            </summary>
+            <param name="StartLatitude"></param>
+            <param name="Startlongitude"></param>
+            <param name="StopLatitude"></param>
+            <param name="Stoplongitude"></param>
+            <returns>2 dimensional integer, 0 = Distance in meters, 1 = time in seconds</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetdrivingDistanceBetweenAddresses(System.String,System.String)">
+            <summary>
+            Gets the driving distance between two addresses using Google's Distance Matrix
+            </summary>
+            <param name="StartAddress"></param>
+            <param name="StopAddress"></param>
+            <returns>2 dimensional integer, 0 = Distance in meters, 1 = time in seconds</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetFlyingDistanceBetweenPoints(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Get line of sight distance between two GeoLocations
+            </summary>
+            <param name="StartLatitude"></param>
+            <param name="Startlongitude"></param>
+            <param name="StopLatitude"></param>
+            <param name="Stoplongitude"></param>
+            <returns>2 dimensional integer: 0 = Distance in meters, 1 = time in seconds</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetGeoLocationForAddress(System.String)">
+            <summary>
+            Get Latitude and Longitude from an address in a double aray, first is Latitude, second is Longitude
+            </summary>
+            <param name="Address"></param>
+            <returns>0 == latitude and 1 == longitude</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GetAddressAndLocationForIPAddress(System.String)">
+            <summary>
+            Returns the street address and the geolocation from an IP address
+            </summary>
+            <param name="IPAddress">Example 195.24.73.145</param>
+            <returns>a Tuple of 3 values: address, latitude and longitude</returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.GenerateKMLFileFromCoordinates(System.Data.DataTable,System.String,System.Drawing.Color)">
+            <summary>
+            Returns the content for a KML file base on the coordinates you provie in a datatable
+            </summary>
+            <param name="dtCoordinates">Column 0 has the Longitude, Column 1 has the Latitude</param>
+            <param name="Name">The name to be shown</param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.EncodeHashString(System.String)">
+            <summary>
+            Encrypts the string and then generates a Base64 string
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Iwwerall.AlgemeneFuncties.DecodeHashString(System.String)">
+            <summary>
+            Decrypts a base64 encrypted string back to the original
+            </summary>
+            <param name="Input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Iwwerall.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.Properties.Resources.request_cancelreg">
+            <summary>
+              Looks up a localized string similar to &lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; 
+            xmlns:v1=&quot;http://socialsecurity.be/presenceregistration/v1&quot; 
+            xmlns:v11=&quot;http://socialsecurity.be/presenceregistration/schemas/v1&quot;
+            xmlns:wsu=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot;&gt;
+              &lt;soapenv:Header&gt;
+               &lt;wsse:Security xmlns:wsse=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot;&gt;
+               &lt;/wsse:Security&gt;
+              &lt;/soapenv:Header&gt;
+              &lt;soapenv:Body wsu:Id=&quot;body [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.Properties.Resources.request_presencereg">
+            <summary>
+              Looks up a localized string similar to &lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; 
+            xmlns:v1=&quot;http://socialsecurity.be/presenceregistration/v1&quot; 
+            xmlns:v11=&quot;http://socialsecurity.be/presenceregistration/schemas/v1&quot;
+            xmlns:wsu=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot;&gt;
+              &lt;soapenv:Header&gt;
+               &lt;wsse:Security xmlns:wsse=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot;&gt;
+               &lt;/wsse:Security&gt;
+              &lt;/soapenv:Header&gt;
+              &lt;soapenv:Body wsu:Id=&quot;body [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.Properties.Resources.request_token">
+            <summary>
+              Looks up a localized string similar to &lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;
+            			xmlns:wsu=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot;
+            			xmlns:auth=&quot;http://schemas.xmlsoap.org/ws/2006/12/authorization&quot;&gt;
+              &lt;soapenv:Header&gt;
+            &lt;wsse:Security xmlns:wsse=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot;&gt;
+            	&lt;wsse:BinarySecurityToken EncodingType=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64 [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.Properties.Resources.waiting">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.Date">
+            <summary>
+            Get or set the registration date.
+            The date is optional: when not provided, the date that is transmitted = today.
+            Note: the date can only be today or tomorrow
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.INSS">
+            <summary>
+            Social security number
+            Validation: must be numeric and have 11 numbers
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.CompanyId">
+            <summary>
+            Get or set the company Id, as identified by the KBO
+            Validation: must consist of 10 numbers
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.WorkplaceId">
+            <summary>
+            Get or set the workplace Id as defined in the Declaration of Works (DDT/AVW)
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.LimosaId">
+            <summary>
+            Get or set the Limosa number defining the workrelation between a foreign employee, a foreign company and a potential belgian client
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.InternalReference">
+            <summary>
+            Get or set the internal reference to send with the presence registration.
+            Is used internally to identify the responses
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.Status">
+            <summary>
+            Get the status returned by the Social Security
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.RegistrationId">
+            <summary>
+            Get the registration id returned by the Social Security.
+            Must be set to allow cancelling the registration.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.CancellationReason">
+            <summary>
+            Get or set the Cancellation reason. This must be different than 'NoCancellation' to transmit a cancellation.
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RegistrationData.Success">
+            <summary>
+            Get if the registration/cancellation was successful.
+            </summary>
+        </member>
+        <member name="M:Iwwerall.RegistrationData.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Iwwerall.RegistrationData.GetRegistrationXml">
+            <summary>
+            Creates an <see cref="T:System.Xml.Linq.XElement"/> for the registration of the presence based on the present info.
+            </summary>
+        </member>
+        <member name="M:Iwwerall.RegistrationData.GetCancellationXml">
+            <summary>
+            Creates an <see cref="T:System.Xml.Linq.XElement"/> for the cancellation of the registration of the presence based on the present info.
+            </summary>
+        </member>
+        <member name="F:Iwwerall.RSZComm.STSsimulationUrl">
+            <summary>URL to the STS (simultion) webservice</summary>
+        </member>
+        <member name="F:Iwwerall.RSZComm.STSUrl">
+            <summary>URL to the STS webservice</summary>
+        </member>
+        <member name="F:Iwwerall.RSZComm.PresenceRegSimulationUrl">
+            <summary>URL to the presence registration (simulation) webservice</summary>
+        </member>
+        <member name="F:Iwwerall.RSZComm.PresenceRegUrl">
+            <summary>URL to the presence registration webservice</summary>
+        </member>
+        <member name="F:Iwwerall.RSZComm.CertificateLocation">
+            <summary>
+            Physical location for the pfx certificate
+            </summary>
+        </member>
+        <member name="F:Iwwerall.RSZComm.CertificatePassword">
+            <summary>
+            Password for the certficate
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RSZComm.CertificateStore">
+            <summary>
+            Get the certificate store where the X.509 certificate is stored in
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RSZComm.CertificateStoreLocation">
+            <summary>
+            Get or set the certificate store location
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RSZComm.CertificateIdentification">
+            <summary>
+            Get the key to the certificate in the store
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RSZComm.SimulationMode">
+            <summary>
+            Get if we're in simulation mode
+            </summary>
+        </member>
+        <member name="P:Iwwerall.RSZComm.ExpeditorNumber">
+            <summary>
+            Get or set the expeditor number, assigned by the Social Security
+            </summary>
+        </member>
+        <member name="E:Iwwerall.RSZComm.SOAPEvent">
+            <summary>
+            Represents a SOAP event: occurs when a request is sent to the service, or when a response is received.
+            This event allows you to implement some logging of the incoming/outgoing messages.
+            </summary>
+        </member>
+        <member name="M:Iwwerall.RSZComm.#ctor(System.String,System.String,System.Int64,System.Boolean,System.Security.Cryptography.X509Certificates.StoreLocation)">
+            <summary>
+            Initialization constructor
+            </summary>
+            <param name="simulationMode">Are we in simulation mode ? When set to <b>true</b> the simulation-Url's will be used (cfr. constants in this class)</param>
+            <param name="certificateStore">Name of the store where the certificate can be found e.g. 'ROOT'</param>
+            <param name="expeditornb">The expeditor number, assigned by the Social Security</param>
+            <param name="certificateIdentification">String used to find the certificate by e.g. the e-mailaddress</param>
+            <param name="certificateStoreLocation">Certificate store location (defaults to Currentuser).</param>
+        </member>
+        <member name="M:Iwwerall.RSZComm.Register(System.Collections.Generic.IEnumerable{Iwwerall.RegistrationData})">
+            <summary>
+            Registers the list of given <see cref="T:Iwwerall.RegistrationData">presences</see> at the Social Security service.
+            Note: max. 200 presences can be passed at a time !
+            </summary>
+        </member>
+        <member name="M:Iwwerall.RSZComm.getSAML">
+            <summary>
+            Fetches the SAML token
+            </summary>
+        </member>
+        <member name="P:Iwwerall.SOAPEventArgs.Url">
+            <summary>
+            URL to which a message was sent
+            </summary>
+        </member>
+        <member name="P:Iwwerall.SOAPEventArgs.SOAPaction">
+            <summary>
+            SOAPaction that was invoked
+            </summary>
+        </member>
+        <member name="P:Iwwerall.SOAPEventArgs.Xml">
+            <summary>
+            Sent or received XML
+            </summary>
+        </member>
+        <member name="P:Iwwerall.SOAPEventArgs.IsRequest">
+            <summary>
+            <b>true</b> if it's an outgoing request, or <b>false</b> when it's a response
+            </summary>
+        </member>
+        <member name="M:Iwwerall.SOAPEventArgs.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Initialization constructor
+            </summary>
+        </member>
+        <member name="T:BasicHttpBinding_LicenseService">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.#ctor">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.CheckLicenseCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.MiningAllTimeStatsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.MiningTodayStatsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.CryptoMiningGetBalancesCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.MasternodesGetStatusCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.CryptoMiningGetRecentCoinsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.MiningTotalsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.CryptoMiningSpeedsStatsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.MiningWorkersCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.HaalTemperatureSensorsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.HaalMijnSaldoCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.SoftwareErrorMessagesAddCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.GetGeoLocationForAddressCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpBinding_LicenseService.CheckOffdayCompleted">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CheckLicense(System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginCheckLicense(System.String,System.String,System.String,System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndCheckLicense(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CheckLicenseAsync(System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CheckLicenseAsync(System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningAllTimeStats">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginMiningAllTimeStats(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndMiningAllTimeStats(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningAllTimeStatsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningAllTimeStatsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningTodayStats">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginMiningTodayStats(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndMiningTodayStats(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningTodayStatsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningTodayStatsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningGetBalances">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginCryptoMiningGetBalances(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndCryptoMiningGetBalances(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningGetBalancesAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningGetBalancesAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MasternodesGetStatus">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginMasternodesGetStatus(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndMasternodesGetStatus(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MasternodesGetStatusAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MasternodesGetStatusAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningGetRecentCoins">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginCryptoMiningGetRecentCoins(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndCryptoMiningGetRecentCoins(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningGetRecentCoinsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningGetRecentCoinsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningTotals(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginMiningTotals(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndMiningTotals(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningTotalsAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningTotalsAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningSpeedsStats">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginCryptoMiningSpeedsStats(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndCryptoMiningSpeedsStats(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningSpeedsStatsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CryptoMiningSpeedsStatsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningWorkers(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginMiningWorkers(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndMiningWorkers(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningWorkersAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.MiningWorkersAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.HaalTemperatureSensors(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginHaalTemperatureSensors(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndHaalTemperatureSensors(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.HaalTemperatureSensorsAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.HaalTemperatureSensorsAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.HaalMijnSaldo(System.String,System.Double@,System.Boolean@)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginHaalMijnSaldo(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndHaalMijnSaldo(System.IAsyncResult,System.Double@,System.Boolean@)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.HaalMijnSaldoAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.HaalMijnSaldoAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.SoftwareErrorMessagesAdd(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginSoftwareErrorMessagesAdd(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndSoftwareErrorMessagesAdd(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.SoftwareErrorMessagesAddAsync(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.SoftwareErrorMessagesAddAsync(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.GetGeoLocationForAddress(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginGetGeoLocationForAddress(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndGetGeoLocationForAddress(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.GetGeoLocationForAddressAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.GetGeoLocationForAddressAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CheckOffday(System.String,System.DateTime,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.BeginCheckOffday(System.String,System.DateTime,System.Boolean,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.EndCheckOffday(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CheckOffdayAsync(System.String,System.DateTime,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CheckOffdayAsync(System.String,System.DateTime,System.Boolean,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpBinding_LicenseService.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="T:BasicHttpsBinding_LicenseService">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.#ctor">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.CheckLicenseCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.MiningAllTimeStatsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.MiningTodayStatsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.CryptoMiningGetBalancesCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.MasternodesGetStatusCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.CryptoMiningGetRecentCoinsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.MiningTotalsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.CryptoMiningSpeedsStatsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.MiningWorkersCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.HaalTemperatureSensorsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.HaalMijnSaldoCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.SoftwareErrorMessagesAddCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.GetGeoLocationForAddressCompleted">
+            <remarks/>
+        </member>
+        <member name="E:BasicHttpsBinding_LicenseService.CheckOffdayCompleted">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CheckLicense(System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginCheckLicense(System.String,System.String,System.String,System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndCheckLicense(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CheckLicenseAsync(System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CheckLicenseAsync(System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningAllTimeStats">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginMiningAllTimeStats(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndMiningAllTimeStats(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningAllTimeStatsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningAllTimeStatsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningTodayStats">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginMiningTodayStats(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndMiningTodayStats(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningTodayStatsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningTodayStatsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningGetBalances">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginCryptoMiningGetBalances(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndCryptoMiningGetBalances(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningGetBalancesAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningGetBalancesAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MasternodesGetStatus">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginMasternodesGetStatus(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndMasternodesGetStatus(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MasternodesGetStatusAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MasternodesGetStatusAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningGetRecentCoins">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginCryptoMiningGetRecentCoins(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndCryptoMiningGetRecentCoins(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningGetRecentCoinsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningGetRecentCoinsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningTotals(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginMiningTotals(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndMiningTotals(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningTotalsAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningTotalsAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningSpeedsStats">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginCryptoMiningSpeedsStats(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndCryptoMiningSpeedsStats(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningSpeedsStatsAsync">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CryptoMiningSpeedsStatsAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningWorkers(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginMiningWorkers(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndMiningWorkers(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningWorkersAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.MiningWorkersAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.HaalTemperatureSensors(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginHaalTemperatureSensors(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndHaalTemperatureSensors(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.HaalTemperatureSensorsAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.HaalTemperatureSensorsAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.HaalMijnSaldo(System.String,System.Double@,System.Boolean@)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginHaalMijnSaldo(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndHaalMijnSaldo(System.IAsyncResult,System.Double@,System.Boolean@)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.HaalMijnSaldoAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.HaalMijnSaldoAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.SoftwareErrorMessagesAdd(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginSoftwareErrorMessagesAdd(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndSoftwareErrorMessagesAdd(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.SoftwareErrorMessagesAddAsync(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.SoftwareErrorMessagesAddAsync(System.String,System.String,System.String,System.Int32,System.Boolean,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.GetGeoLocationForAddress(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginGetGeoLocationForAddress(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndGetGeoLocationForAddress(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.GetGeoLocationForAddressAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.GetGeoLocationForAddressAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CheckOffday(System.String,System.DateTime,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.BeginCheckOffday(System.String,System.DateTime,System.Boolean,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.EndCheckOffday(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CheckOffdayAsync(System.String,System.DateTime,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CheckOffdayAsync(System.String,System.DateTime,System.Boolean,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:BasicHttpsBinding_LicenseService.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfdoubledoubledoubledouble">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfdoubledoubledoubledouble.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfdoubledoubledoubledouble.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfdoubledoubledoubledouble.m_Item3">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfdoubledoubledoubledouble.m_Item4">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfstringdoubledoubledouble">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledouble.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledouble.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledouble.m_Item3">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledouble.m_Item4">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfstringdoubledouble">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledouble.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledouble.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledouble.m_Item3">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfstringstringdoubledoubledoubledoubledoubledouble">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Item3">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Item4">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Item5">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Item6">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Item7">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledoubledoubledouble.m_Rest">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfstringstringlong">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringlong.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringlong.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringlong.m_Item3">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfstringlongbooleanstring">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringlongbooleanstring.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringlongbooleanstring.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringlongbooleanstring.m_Item3">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringlongbooleanstring.m_Item4">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfstringstringdoubledoubledoubledouble">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledouble.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledouble.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledouble.m_Item3">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledouble.m_Item4">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledouble.m_Item5">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringstringdoubledoubledoubledouble.m_Item6">
+            <remarks/>
+        </member>
+        <member name="T:TupleOfstringdoubledoubledoubledouble">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledoubledouble.m_Item1">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledoubledouble.m_Item2">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledoubledouble.m_Item3">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledoubledouble.m_Item4">
+            <remarks/>
+        </member>
+        <member name="P:TupleOfstringdoubledoubledoubledouble.m_Item5">
+            <remarks/>
+        </member>
+        <member name="T:CheckLicenseCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CheckLicenseCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CheckLicenseCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:MiningAllTimeStatsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:MiningAllTimeStatsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:MiningAllTimeStatsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:MiningTodayStatsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:MiningTodayStatsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:MiningTodayStatsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CryptoMiningGetBalancesCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CryptoMiningGetBalancesCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CryptoMiningGetBalancesCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:MasternodesGetStatusCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:MasternodesGetStatusCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:MasternodesGetStatusCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CryptoMiningGetRecentCoinsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CryptoMiningGetRecentCoinsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CryptoMiningGetRecentCoinsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:MiningTotalsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:MiningTotalsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:MiningTotalsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CryptoMiningSpeedsStatsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CryptoMiningSpeedsStatsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CryptoMiningSpeedsStatsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:MiningWorkersCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:MiningWorkersCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:MiningWorkersCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:HaalTemperatureSensorsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:HaalTemperatureSensorsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:HaalTemperatureSensorsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:HaalMijnSaldoCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:HaalMijnSaldoCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:HaalMijnSaldoCompletedEventArgs.HaalMijnSaldoResult">
+            <remarks/>
+        </member>
+        <member name="P:HaalMijnSaldoCompletedEventArgs.HaalMijnSaldoResultSpecified">
+            <remarks/>
+        </member>
+        <member name="T:SoftwareErrorMessagesAddCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:GetGeoLocationForAddressCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:GetGeoLocationForAddressCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:GetGeoLocationForAddressCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CheckOffdayCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CheckOffdayCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CheckOffdayCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+    </members>
+</doc>

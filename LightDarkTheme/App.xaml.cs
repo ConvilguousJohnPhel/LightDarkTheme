@@ -38,11 +38,12 @@ namespace LightDarkTheme
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            SetTheme();
             MainWindow ParentWindow = new MainWindow();
             ParentWindow.CurrentApplication = this;
             this.MainWindow = ParentWindow;
             ParentWindow.Show();
+            ParentWindow.btnTheme.Content = GetWindowsTheme();
+
         }
 
         public string GetWindowsTheme()
@@ -65,7 +66,7 @@ namespace LightDarkTheme
 
                 int registryValue = (int)registryValueObject;
 
-                return registryValue == 0 ? "LightTheme" : "DarkTheme";
+                return registryValue > 0 ? "DarkTheme" : "LightTheme";
             }
         }
 

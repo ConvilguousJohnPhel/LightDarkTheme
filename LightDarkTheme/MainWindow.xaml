@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="sd asdas dasd asd"/>
+        <Button Content="sd asdas dasd asd" Name="btnTheme"/>
         <StackPanel VerticalAlignment="Center">
             <Button Content="sdasd asdas d"/>
         </StackPanel>

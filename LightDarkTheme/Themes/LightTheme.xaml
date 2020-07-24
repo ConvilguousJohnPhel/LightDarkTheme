@@ -11,7 +11,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="0 5 5 0" Background="{TemplateBinding Background}" BorderBrush="#233152" BorderThickness="0" >
+                    <Border CornerRadius="0 5 5 0" Background="{TemplateBinding Background}" BorderBrush="#F3F3F3" BorderThickness="0" >
                         <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                 </ControlTemplate>
@@ -21,12 +21,12 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Trigger.Setters>
                     <Setter Property="Cursor" Value="Hand"/>
-                    <Setter Property="Background" Value="#091738"/>
+                    <Setter Property="Background" Value="#F3F3F3"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="0 5 5 0" Background="{TemplateBinding Background}" BorderBrush="#091738" BorderThickness="1" >
+                                <Border CornerRadius="0 5 5 0" Background="{TemplateBinding Background}" BorderBrush="#F3F3F3" BorderThickness="1" >
                                     <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                                 </Border>
                             </ControlTemplate>

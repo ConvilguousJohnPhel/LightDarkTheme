@@ -38,6 +38,7 @@ namespace LightDarkTheme
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            SetTheme();
             MainWindow ParentWindow = new MainWindow();
             ParentWindow.CurrentApplication = this;
             this.MainWindow = ParentWindow;
@@ -49,30 +50,18 @@ namespace LightDarkTheme
         public string GetWindowsTheme()
         {
             var currentUser = WindowsIdentity.GetCurrent();
-            string query = string.Format(
-                CultureInfo.InvariantCulture,
-                @"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{0}\\{1}' AND ValueName = '{2}'",
-                currentUser.User.Value,
-                RegistryKeyPath.Replace(@"\", @"\\"),
-                RegistryValueName);
 
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath))
             {
                 object registryValueObject = key?.GetValue(RegistryValueName);
                 if (registryValueObject == null)
                 {
-                    MessageBox.Show("LightTheme");
                     return "LightTheme";
                 }
 
                 int registryValue = (int)registryValueObject;
 
-                if(registryValue > 0)
-                    MessageBox.Show("DarkTheme");
-                else
-                    MessageBox.Show("LightTheme");
-
-                return registryValue > 0 ? "DarkTheme" : "LightTheme";
+                return registryValue > 0 ? "LightTheme" : "DarkTheme";
             }
 
         }

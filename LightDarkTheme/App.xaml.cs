@@ -80,6 +80,7 @@ namespace LightDarkTheme
             {
                 if (!string.IsNullOrEmpty(GetWindowsTheme()))
                     ChangeTheme(new Uri($"Themes/{GetWindowsTheme()}.xaml", UriKind.Relative));
+
             }
             catch (Exception eee)
             {
